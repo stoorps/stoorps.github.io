@@ -1,0 +1,96 @@
+---
+
+const { checked, onChange, offContent, onContent } = Astro.props;
+
+---
+<style>
+    .toggle-switch {
+        position: relative;
+        display: inline-block;
+        min-height: 34px;
+    }
+    
+    .toggle-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+    
+    .slider {
+        position: relative;
+        cursor: pointer;
+        background-color: var(--container-background);
+        transition: .4s;
+        border-radius: 12px;
+        padding: 0 8px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-width: 60px;
+        min-height: 42px;
+    }
+    
+    .slider::before {
+        position: absolute;
+        content: "";
+        height: calc(100% - 8px);
+        width: 50%;
+        left: 4px;
+        top: 4px;
+        background-color: var(--text-dim);
+        transition: .4s;
+        border-radius: 12px;
+        z-index: 2;
+    }
+    
+    input:checked + .slider {
+        color: #2196F3;
+
+    }
+    
+    input:checked + .slider::before {
+        left: calc(50% - 4px);
+    }
+    
+    .off-content, .on-content {
+        font-size: 12px;
+        font-weight: bold;
+        color: white;
+        pointer-events: none;
+        white-space: nowrap;
+        user-select: none;
+        z-index: 3;
+        padding: 0 30px 0 4px;
+        transition: color .4s;
+    }
+    
+    .off-content {
+        margin-right: auto;
+    }
+    
+    .on-content {
+        margin-left: auto;
+        padding: 0 4px 0 30px;
+    }
+    
+    .off-content {
+        color: var(--background);
+    }
+    
+    input:checked + .slider .off-content {
+        color: white;
+    }
+    
+    input:checked + .slider .on-content {
+        color: var(--background);
+    }
+
+</style>
+<label class="toggle-switch">
+  <input type="checkbox" checked={checked} onchange={onChange} />
+  <span class="slider">
+    <span class="off-content">{offContent}</span>
+    <span class="on-content">{onContent}</span>
+  </span>
+</label>

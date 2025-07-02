@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import BlogItems from '../components/BlogItems.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import ProjectItems from '../components/ProjectItems.astro';
+import ToggleSwitch from '../components/ToggleSwitch.astro';
 ---
 
 <!doctype html>
@@ -19,11 +20,14 @@ import ProjectItems from '../components/ProjectItems.astro';
 				<section style="flex: 3; min-width: 320px; padding-top:5rem;">
 					<h1>Hello, There!</h1>
 					<p>
+						🚧 SITE UNDER CONSTRUCTION, AS AND WHEN I FEEL LIKE IT 🚧<br/>
 						I'm a Software engineer from the UK, and this is my blog/portfolio/links thing...
 					</p>
 					<br/>
 
+
 					<h5>"Quick" About me</h5>
+					<ToggleSwitch offContent="TL;DR" onContent="More pls"/>
 					<p>
 						My day job is as an Engineer for <a href="https://www.sainsburys.jobs/teams/technology">Sainsbury's Tech</a>, and I work on a few open source projects in my spare time.
 					</p>
@@ -57,8 +61,6 @@ import ProjectItems from '../components/ProjectItems.astro';
 				<section
 					style="flex: 1; box-sizing: border-box; min-width: 320px; max-width: 900px;"
 					id="blog">
-					<h4>Blog Posts</h4>
-					<br />
 					<BlogItems />
 				</section>
 			</div>

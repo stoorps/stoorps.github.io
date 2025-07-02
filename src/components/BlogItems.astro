@@ -55,19 +55,7 @@ const posts = (await getCollection('blog')).sort(
 		font-size: clamp(1.2rem, 1.25vw, 2.369rem);
 
 	}
-	.date {
-		margin: 0;
-		color: rgb(var(--text-dim));
-		font-size: clamp(0.9rem, 1.25vw, 1.2rem);
-
-	}
-	ul li a:hover h4,
-	ul li a:hover .date {
-		color: rgb(var(--accent));
-	}
-	ul a:hover img {
-		box-shadow: var(--box-shadow);
-	}
+	
 
 
 
@@ -90,7 +78,7 @@ const posts = (await getCollection('blog')).sort(
 </style>
 
 <ul>
-	{
+	{posts.length > 0 &&
 		posts.map((post) => (
 			<li>
 				<a href={`/blog/${post.id}/`}>
@@ -105,5 +93,12 @@ const posts = (await getCollection('blog')).sort(
 			</li>
 		))
 	}
+	{posts.length === 0 && (
+		<li class="container" style="text-align: center;">
+			<h4>Blog Posts</h4>
+					<br />
+			<p style="color: var(--text-dim); padding: 5em;">Nothing here just yet, come back soon!</p>
+		</li>
+	)}
 </ul>
 		

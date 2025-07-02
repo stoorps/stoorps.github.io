@@ -35,6 +35,7 @@ const renderedPosts = await Promise.all(
 		list-style-type: none;
 		margin: 0;
 		padding: 0;
+		
 	}
 	ul li {
 		width: calc(33% - 3rem);
@@ -63,9 +64,19 @@ const renderedPosts = await Promise.all(
 		margin-bottom: 0.5rem;
 		border-radius: 12px;
 	}
+	a {
+		text-decoration: none;
+		color: var(--container-background) !important;
+	}
+	
+	a:hover {
+		color: var(--background);
+	}
+
 	ul li a {
 		display: block;
 		font-size: clamp(0.9rem, 1.25vw, 0.9rem);
+
 	}
 	.title {
 		margin: 0;
@@ -77,13 +88,14 @@ const renderedPosts = await Promise.all(
 	}
 	.date {
 		margin: 0;
-		color: rgb(var(--text-dim));
+		color: var(--background);
 		font-size: clamp(0.9rem, 1.25vw, 1.2rem);
 
 	}
 	ul li a:hover h4,
 	ul li a:hover .date {
-		color: var(--pallete-3);
+		color: var(--background);
+
 	}
 	/* ul a:hover img {
 		box-shadow: var(--box-shadow);
