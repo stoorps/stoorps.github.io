@@ -1,0 +1,72 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BlogItems from '../components/BlogItems.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<div style="display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 400px);">
+				<section style="text-align: center;">
+					<div id="robot-warning">
+                        <h3>Halt, Citizen!</h3>
+                        <p>
+                            Before giving out my email address, I need to prove you are not a robot.
+                        </p>
+                        <br/>
+                        <div
+                            class="cf-turnstile"
+                            data-sitekey="0x4AAAAAABjN_RoUOJoca7kn"
+                            data-callback="javascriptCallback">
+                        </div>
+                    </div>
+                    
+    
+                    <div id="email-display" style="display: none; margin-top: 1rem; padding: 1rem; background-color: var(--container-background); border-radius: 8px; align-items: center; gap: 0.5rem;">
+                        <svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
+                            <path fill="currentColor" d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2zm-2 9.8V4.698l5.803 3.546zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.5 4.5 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586zM16 9.671V4.697l-5.803 3.546.338.208A4.5 4.5 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671"/>
+                            <path fill="currentColor" d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791"/>
+                        </svg>
+                        <!-- Email will be displayed here -->
+                    </div>
+                    
+				</section>
+			</div>
+		</main>
+		<Footer />
+		<script>
+			console.log('Script loaded');
+			
+			// Simple base64 encoded email (not secure, just obfuscated)
+			const encodedEmail = "c3Rvb3Jwc0BwbS5tZQ=="; // Replace with your base64 encoded email
+			
+			function javascriptCallback(token: string) {
+				console.log('Turnstile callback fired! Token:', token);
+				
+                const email = atob(encodedEmail);
+                const emailElement = document.getElementById('email-display');
+                if (emailElement) {
+                    emailElement.innerHTML = emailElement.innerHTML + `<a href="mailto:${email}">${email}</a>`;
+                    emailElement.style.display = 'flex';
+                }
+                const warning = document.getElementById('robot-warning') as HTMLElement;
+                if (warning) {
+                    warning.style.display = 'none'; // Hide the Turnstile widget after successful validation
+                }
+					
+			}
+			
+			// Make sure the function is globally available
+			(window as any).javascriptCallback = javascriptCallback;
+		</script>
+	</body>
+</html>

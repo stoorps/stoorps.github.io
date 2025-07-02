@@ -1,0 +1,126 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection, render } from 'astro:content';
+import FormattedDate from '../components/FormattedDate.astro';
+import { Image } from 'astro:assets';
+
+
+
+const posts = (await getCollection('projects')).sort(
+	(a, b) => a.data.order - b.data.order,
+);
+
+
+const renderedPosts = await Promise.all(
+	posts.map(async (post) => ({
+		...post,
+		renderedContent: (await render(post)),
+	}))
+);
+
+
+---
+<style>
+	main {
+		width: 960px;
+
+	}
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	ul li {
+		width: calc(33% - 3rem);
+		background-color: var(--text-dim);
+		color: var(--background);
+		border-radius: 5px;
+		padding: 1em;
+		font-size: clamp(0.9rem, 1.25vw, 1.0rem);
+	}
+	ul li * {
+		transition: 0.2s ease;
+	}
+	/* ul li:first-child {
+		width: 100%;
+		margin-left:25%;
+		margin-right:25%;
+		 text-align: center; 
+	} */
+	/* ul li:first-child img {
+		width: 100%;
+	}
+	ul li:first-child .title {
+		font-size: clamp(1.563rem, 4vw, 2.369rem);
+	}  */
+	ul li img {
+		margin-bottom: 0.5rem;
+		border-radius: 12px;
+	}
+	ul li a {
+		display: block;
+		font-size: clamp(0.9rem, 1.25vw, 0.9rem);
+	}
+	.title {
+		margin: 0;
+		color: var(--background);
+		text-decoration-color: var(--background);
+		line-height: 1;
+		font-size: clamp(1.2rem, 1.25vw, 2.369rem);
+
+	}
+	.date {
+		margin: 0;
+		color: rgb(var(--text-dim));
+		font-size: clamp(0.9rem, 1.25vw, 1.2rem);
+
+	}
+	ul li a:hover h4,
+	ul li a:hover .date {
+		color: var(--pallete-3);
+	}
+	/* ul a:hover img {
+		box-shadow: var(--box-shadow);
+	} */
+
+
+
+
+	@media (max-width: 720px) {
+		ul {
+			gap: 0.5em;
+		}
+		ul li {
+			width: 100%;
+			text-align: center;
+		}
+		/* ul li:first-child {
+			margin-bottom: 0;
+		}
+		ul li:first-child .title {
+			font-size: 1.563em;
+		} */
+	}
+</style>
+
+<ul>
+	{
+		posts.map((post) => (
+			<li>
+				<a href={post.data.projectUrl} target="_blank" rel="noopener noreferrer">
+					<h4 class="title">{post.data.title}</h4>
+				</a>
+				<div>
+					<div set:html={post.rendered?.html}></div>
+				</div>
+			</li>
+		))
+	}
+</ul>
+		
