@@ -5,8 +5,16 @@
  */
 
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
+	--palette-1: #393646;
+	--palette-2: #4F4557;
+	--palette-3: #6D5D6E;
+	--palette-4: #F4EEE0;
+	--text-dim: #9a968d;
+	--background: var(--palette-1);
+	--container-background: var(--palette-2);
+	--text: var(--palette-4);
+	--accent: var(--palette-4);
+	--accent-dark: var(--text-dim);
 	--black: 15, 18, 25;
 	--gray: 96, 115, 159;
 	--gray-light: 229, 233, 240;
@@ -17,32 +25,45 @@
 		0 16px 32px rgba(var(--gray), 33%);
 }
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-regular.woff') format('woff');
-	font-weight: 400;
+	font-family: 'Berkeley Mono';
+	src: url('/fonts/berkeley-mono-variable.woff2') format('woff2');
+	font-weight: 200;
 	font-style: normal;
 	font-display: swap;
 }
 @font-face {
-	font-family: 'Atkinson';
-	src: url('/fonts/atkinson-bold.woff') format('woff');
+	font-family: 'Berkeley Mono';
+	src: url('/fonts/berkeley-mono-variable.woff2') format('woff2');
 	font-weight: 700;
 	font-style: normal;
 	font-display: swap;
 }
 body {
-	font-family: 'Atkinson', sans-serif;
+	font-family: 'Berkeley Mono', sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
+	background: var(--palette-1);
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
+	color: var(--palette-4);
 	font-size: 20px;
 	line-height: 1.7;
 }
+header {
+	background: var(--container-background) !important;
+	padding: 1em 0;
+	border-bottom: 1px solid rgba(var(--palette-3), 0.2);
+	box-shadow: var(--box-shadow);
+}
+footer {
+	background: var(--container-background) !important;
+	padding: 1em 0;
+	border-top: 1px solid rgba(var(--palette-3), 0.2);
+	color: var(--pallette-4) !important;
+}
+
 main {
 	width: 720px;
 	max-width: calc(100% - 2em);
@@ -56,7 +77,7 @@ h4,
 h5,
 h6 {
 	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
+	color: var(--text);
 	line-height: 1.2;
 }
 h1 {
@@ -76,7 +97,7 @@ h5 {
 }
 strong,
 b {
-	font-weight: 700;
+	font-weight: 500;
 }
 a {
 	color: var(--accent);
@@ -107,7 +128,7 @@ img {
 }
 code {
 	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
+	background-color: var(--palette-2);
 	border-radius: 2px;
 }
 pre {
@@ -125,7 +146,7 @@ blockquote {
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid var(--gray-light);
 }
 @media (max-width: 720px) {
 	body {
